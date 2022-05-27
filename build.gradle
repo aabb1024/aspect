@@ -1,14 +1,7 @@
-apply from: 'ext.gradle'
-
 buildscript {
     repositories {
         mavenLocal()
-        mavenCentral()
-        jcenter()
-    }
-
-    dependencies {
-        classpath 'org.aspectj:aspectjtools:1.8.+'
+        google()
     }
 }
 
@@ -16,22 +9,24 @@ allprojects {
     buildscript {
         repositories {
             mavenLocal()
-            mavenCentral()
-            jcenter()
+            google()
         }
     }
-    
+
     dependencies {
         repositories {
             mavenLocal()
-            mavenCentral()
-            jcenter()
+            google()
         }
     }
 
-    apply plugin: 'maven'
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '2.10'
+// load local.properties
+Properties properties = new Properties()
+if (project.file('local.properties').exists()) {
+    properties.load(project.file('local.properties').newDataInputStream())
+    properties.entrySet().each {
+        project.ext.set(it.key, it.value)
+    }
 }

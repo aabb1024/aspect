@@ -1,38 +1,31 @@
 buildscript {
     repositories {
-        mavenLocal()
-        jcenter()
+        google()
+        mavenCentral()
     }
 
     dependencies {
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.6'
-        classpath 'org.jfrog.buildinfo:build-info-extractor-gradle:3.1.1'
     }
 }
 
 
 apply plugin: 'groovy'
-apply plugin: 'maven'
 
-targetCompatibility = JavaVersion.VERSION_1_7
-sourceCompatibility = JavaVersion.VERSION_1_7
-
+targetCompatibility = JavaVersion.VERSION_1_8
+sourceCompatibility = JavaVersion.VERSION_1_8
 
 dependencies {
     repositories {
-        mavenLocal()
-        jcenter()
+        google()
+        mavenCentral()
     }
 
     compile gradleApi()
     compile localGroovy()
 
-    compile 'com.android.tools.build:gradle:2.1.+'
-    compile "org.aspectj:aspectjtools:${aspectjVersion}"
-    compile "org.aspectj:aspectjrt:${aspectjVersion}"
-    compile 'com.android.tools.build:transform-api:1.5.0'
-//    compile 'commons-io:commons-io:2.4'
-}
+    compile 'com.android.tools.build:gradle:3.6.1'
+    // 因为修复多线程问题拷贝了源码类修改来覆盖，所以升级aspectjtools时要注意是否需要重新拷贝修改
+    compile "org.aspectj:aspectjtools:1.9.6"
+    compile 'com.google.code.gson:gson:2.8.2'
 
-apply from: 'bintray.gradle'
-apply from: 'maven.gradle'
+}
